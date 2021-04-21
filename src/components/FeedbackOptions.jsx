@@ -7,17 +7,17 @@ const FeedbackOptions = ({
   onIncrementNeutral,
   onIncrementBad,
 }) => (
-  <section className="controls">
-    <button type="button" onClick={onIncrementGood}>
+  <div className={style.controls}>
+    <button className={style.btn} type="button" onClick={onIncrementGood}>
       Good
     </button>
-    <button type="button" onClick={onIncrementNeutral}>
+    <button className={style.btn2} type="button" onClick={onIncrementNeutral}>
       Neutral
     </button>
-    <button type="button" onClick={onIncrementBad}>
+    <button className={style.btn3} type="button" onClick={onIncrementBad}>
       Bad
     </button>
-  </section>
+  </div>
 );
 
 export default FeedbackOptions;

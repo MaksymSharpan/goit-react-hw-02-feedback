@@ -1,0 +1,29 @@
+.sectionContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 500px;
+
+  padding: 30px;
+
+  background: linear-gradient(90deg, #efefe7 50%, #bce8ea 50%);
+  position: relative;
+  padding: 40px;
+  box-sizing: border-box;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 10px;
+    background: linear-gradient(90deg, #bce8ea 50%, #efefe7 50%);
+    left: 25%;
+  }
+  &:before {
+    top: 15px;
+  }
+  &:after {
+    bottom: 15px;
+  }
+}

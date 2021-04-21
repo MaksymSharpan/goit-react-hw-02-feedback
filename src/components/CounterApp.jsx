@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Section from './Section';
 import FeedbackOptions from './FeedbackOptions';
 import Statistics from './Statistics';
+import Section from './Section';
+import Notification from './Notification';
 
-class CounterApp extends React.Component {
+class CounterApp extends Component {
   state = {
     good: 0,
     neutral: 0,
@@ -24,7 +25,7 @@ class CounterApp extends React.Component {
     good: PropTypes.number,
     neutral: PropTypes.number,
     bad: PropTypes.number,
-    // total: PropTypes.number,
+    total: PropTypes.number,
   };
 
   // выриант без return
@@ -51,25 +52,41 @@ class CounterApp extends React.Component {
   };
 
   countTotalFeedback = () => {
-    // return this.state.good + this.state.neutral;
+    const { good, neutral, bad } = this.state;
+    return good + neutral + bad;
   };
-  countPositiveFeedbackPercentage = () => {};
+  countPositiveFeedbackPercentage = () => {
+    const total = this.countTotalFeedback();
+    const { good } = this.state;
+    return ((good * 100) / total).toFixed(0);
+  };
 
   render() {
+    const total = this.countTotalFeedback();
+    const positiveFeedback = this.countPositiveFeedbackPercentage();
+
     return (
       <>
-        <FeedbackOptions
-          onIncrementGood={this.incrementGood}
-          onIncrementNeutral={this.incrementNeutral}
-          onIncrementBad={this.incrementBad}
-        />
-
-        <Statistics
-          good={this.state.good}
-          neutral={this.state.neutral}
-          bad={this.state.bad}
-          // total={this.countTotalFeedback}
-        />
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            onIncrementGood={this.incrementGood}
+            onIncrementNeutral={this.incrementNeutral}
+            onIncrementBad={this.incrementBad}
+          />
+        </Section>
+        <Section title="Statistics">
+          {total ? (
+            <Statistics
+              good={this.state.good}
+              neutral={this.state.neutral}
+              bad={this.state.bad}
+              total={total}
+              positiveFeedback={positiveFeedback}
+            />
+          ) : (
+            <Notification title="No feedback given" />
+          )}
+        </Section>
       </>
     );
   }
